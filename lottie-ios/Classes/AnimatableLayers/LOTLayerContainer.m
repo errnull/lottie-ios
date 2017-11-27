@@ -143,7 +143,7 @@
       } else {
         image = [UIImage imageWithContentsOfFile:imagePath];
       }
-    }else{
+    } else {
       NSArray *components = [asset.imageName componentsSeparatedByString:@"."];
       image = [UIImage imageNamed:components.firstObject inBundle:asset.assetBundle compatibleWithTraitCollection:nil];
     }
@@ -167,7 +167,7 @@
       CGFloat desiredScaleFactor = [window backingScaleFactor];
       CGFloat actualScaleFactor = [image recommendedLayerContentsScale:desiredScaleFactor];
       id layerContents = [image layerContentsForContentsScale:actualScaleFactor];
-      _wrapperLayer = layerContents;
+      _wrapperLayer.contents = layerContents;
     }
   }
   
@@ -184,8 +184,8 @@
   return [super needsDisplayForKey:key];
 }
 
--(id<CAAction>)actionForKey:(NSString *)event {
-  if([event isEqualToString:@"currentFrame"]) {
+- (id<CAAction>)actionForKey:(NSString *)event {
+  if ([event isEqualToString:@"currentFrame"]) {
     CABasicAnimation *theAnimation = [CABasicAnimation
                                       animationWithKeyPath:event];
     theAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
